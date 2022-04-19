@@ -25,11 +25,13 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
     <main className='content'>
       <section className='profile'>
         <div className='profile__user'>
-          <img
-            className='profile__avatar'
-            src={userAvatar}
-            alt='Фото профиля'
-          />
+          {userAvatar && (
+            <img
+              className='profile__avatar'
+              src={userAvatar}
+              alt='Фото профиля'
+            />
+          )}
           <div className='profile__avatar-overlay'>
             <button
               className='profile__avatar-editing'
@@ -61,11 +63,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
         <ul className='elements'>
           {cards.map((card) => {
             return (
-              <Card
-                card={card}
-                key={card._id}
-                onCardClick={onCardClick}
-              />
+              <Card card={card} key={card._id} onCardClick={onCardClick} />
             );
           })}
         </ul>
