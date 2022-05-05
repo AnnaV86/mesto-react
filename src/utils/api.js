@@ -44,6 +44,9 @@ export class Api {
     }).then(this._getResponseData);
   }
 
+  changeLikeCardStatus(id, isLiked) {
+    return isLiked ? this.putLike(id) : this.deleteLike(id);
+  }
   putLike(id) {
     return fetch(`${this._baseUrl}cards/${id}/likes`, {
       method: 'PUT',
