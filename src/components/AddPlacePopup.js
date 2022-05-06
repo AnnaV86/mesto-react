@@ -9,6 +9,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const [isLinkValid, setLinkValid] = useState(false);
   const [nameErrorMessage, setNameErrorMessage] = useState('');
   const [linkErrorMessage, setLinkErrorMessage] = useState('');
+  const [buttonText, setButtonText] = useState('Сохранить');
   const classErrorName = classNames(`placeName-error popup__error`, {
     [`placeName-error popup__error` + ' popup__error_visible']: !isNameValid,
   });
@@ -49,6 +50,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setButtonText('Сохранение...');
     onAddPlace({
       name,
       link: link,
@@ -86,7 +88,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       />
       <span className={classErrorLink}>{linkErrorMessage}</span>
       <button className={classPopupButton} type='submit'>
-        Сохранить
+        {buttonText}
       </button>
     </PopupWithForm>
   );

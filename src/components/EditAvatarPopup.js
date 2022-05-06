@@ -6,6 +6,7 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   const avatarRef = useRef();
   const [isLinkValid, setLinkValid] = useState(false);
   const [linkErrorMessage, setLinkErrorMessage] = useState('');
+  const [buttonText, setButtonText] = useState('Сохранить');
   const classErrorLink = classNames(`avatarLink-error popup__error`, {
     [`avatarLink-error popup__error` + ' popup__error_visible']: !isLinkValid,
   });
@@ -28,6 +29,7 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setButtonText('Сохранение...');
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
@@ -53,7 +55,7 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
       />
       <span className={classErrorLink}>{linkErrorMessage}</span>
       <button className={classPopupButton} type='submit'>
-        Сохранить
+        {buttonText}
       </button>
     </PopupWithForm>
   );

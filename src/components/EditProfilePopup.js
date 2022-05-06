@@ -11,6 +11,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const [isDescriptionValid, setDescriptionValid] = useState(true);
   const [nameErrorMessage, setNameErrorMessage] = useState('');
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
+  const [buttonText, setButtonText] = useState('Сохранить');
   const classErrorName = classNames(`profName-error popup__error`, {
     [`profName-error popup__error` + ' popup__error_visible']: !isNameValid,
   });
@@ -54,6 +55,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setButtonText('Сохранение...');
     onUpdateUser({
       name,
       about: description,
@@ -98,7 +100,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
       />
       <span className={classErrorAboutMe}>{descriptionErrorMessage}</span>
       <button className={classPopupButton} type='submit'>
-        Сохранить
+        {buttonText}
       </button>
     </PopupWithForm>
   );
