@@ -1,18 +1,55 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { PopupWithForm } from './PopupWithForm';
 import { CurrentUserContext } from './CurrentUserContext';
+import classNames from 'classnames';
 
 export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const currentUser = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [isNameValid, setNameValid] = useState(true);
+  const [isDescriptionValid, setDescriptionValid] = useState(true);
+  const [nameErrorMessage, setNameErrorMessage] = useState('');
+  const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
+  const classErrorName = classNames(`profName-error popup__error`, {
+    [`profName-error popup__error` + ' popup__error_visible']: !isNameValid,
+  });
+  const classErrorAboutMe = classNames(`profAboutMe-error popup__error`, {
+    [`profAboutMe-error popup__error` + ' popup__error_visible']:
+      !isDescriptionValid,
+  });
+
+  const classPopupButton = classNames(`popup__button`, {
+    [`popup__button` + ' popup__button_disabled']:
+      !isNameValid || !isDescriptionValid,
+  });
 
   const handleChangeName = (e) => {
+    checkNameValidation(e.target);
     setName(e.target.value);
   };
 
+  const checkNameValidation = (newName) => {
+    if (!newName.validity.valid) {
+      setNameErrorMessage(newName.validationMessage);
+      setNameValid(false);
+    } else {
+      setNameValid(true);
+    }
+  };
+
   const handleChangeDescription = (e) => {
+    checkDescriptionValidation(e.target);
     setDescription(e.target.value);
+  };
+
+  const checkDescriptionValidation = (newText) => {
+    if (!newText.validity.valid) {
+      setDescriptionErrorMessage(newText.validationMessage);
+      setDescriptionValid(false);
+    } else {
+      setDescriptionValid(true);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -47,7 +84,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         value={name}
         onChange={handleChangeName}
       />
-      <span className='profName-error popup__error'></span>
+      <span className={classErrorName}>{nameErrorMessage}</span>
       <input
         className='popup__input'
         type='text'
@@ -59,8 +96,8 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         value={description}
         onChange={handleChangeDescription}
       />
-      <span className='profAboutMe-error popup__error'></span>
-      <button className='popup__button' type='submit'>
+      <span className={classErrorAboutMe}>{descriptionErrorMessage}</span>
+      <button className={classPopupButton} type='submit'>
         Сохранить
       </button>
     </PopupWithForm>

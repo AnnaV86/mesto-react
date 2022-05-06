@@ -1,12 +1,33 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { PopupWithForm } from './PopupWithForm';
+import classNames from 'classnames';
 
 export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   const avatarRef = useRef();
+  const [isLinkValid, setLinkValid] = useState(false);
+  const [linkErrorMessage, setLinkErrorMessage] = useState('');
+  const classErrorLink = classNames(`avatarLink-error popup__error`, {
+    [`avatarLink-error popup__error` + ' popup__error_visible']: !isLinkValid,
+  });
+  const classPopupButton = classNames(`popup__button`, {
+    [`popup__button` + ' popup__button_disabled']: !isLinkValid,
+  });
+
+  const handleChangeLink = (e) => {
+    checkLinkValidation(e.target);
+  };
+
+  const checkLinkValidation = (newLink) => {
+    if (!newLink.validity.valid) {
+      setLinkErrorMessage(newLink.validationMessage);
+      setLinkValid(false);
+    } else {
+      setLinkValid(true);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
@@ -28,9 +49,10 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
         id='avatarLink'
         placeholder='Ссылка на картинку'
         required
+        onChange={handleChangeLink}
       />
-      <span className='avatarLink-error popup__error'></span>
-      <button className='popup__button' type='submit'>
+      <span className={classErrorLink}>{linkErrorMessage}</span>
+      <button className={classPopupButton} type='submit'>
         Сохранить
       </button>
     </PopupWithForm>

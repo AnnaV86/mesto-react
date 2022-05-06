@@ -1,16 +1,50 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PopupWithForm } from './PopupWithForm';
+import classNames from 'classnames';
 
 export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  const [isNameValid, setNameValid] = useState(false);
+  const [isLinkValid, setLinkValid] = useState(false);
+  const [nameErrorMessage, setNameErrorMessage] = useState('');
+  const [linkErrorMessage, setLinkErrorMessage] = useState('');
+  const classErrorName = classNames(`placeName-error popup__error`, {
+    [`placeName-error popup__error` + ' popup__error_visible']: !isNameValid,
+  });
+  const classErrorLink = classNames(`placeLink-error popup__error`, {
+    [`placeLink-error popup__error` + ' popup__error_visible']: !isLinkValid,
+  });
+  const classPopupButton = classNames(`popup__button`, {
+    [`popup__button` + ' popup__button_disabled']: !isNameValid || !isLinkValid,
+  });
 
   const handleChangeName = (e) => {
+    checkNameValidation(e.target);
     setName(e.target.value);
   };
 
+  const checkNameValidation = (newName) => {
+    if (!newName.validity.valid) {
+      setNameErrorMessage(newName.validationMessage);
+      setNameValid(false);
+    } else {
+      setNameValid(true);
+    }
+  };
+
   const handleChangeLink = (e) => {
+    checkLinkValidation(e.target);
     setLink(e.target.value);
+  };
+
+  const checkLinkValidation = (newLink) => {
+    if (!newLink.validity.valid) {
+      setLinkErrorMessage(newLink.validationMessage);
+      setLinkValid(false);
+    } else {
+      setLinkValid(true);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -40,7 +74,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
         maxLength='30'
         onChange={handleChangeName}
       />
-      <span className='placeName-error popup__error'></span>
+      <span className={classErrorName}>{nameErrorMessage}</span>
       <input
         className='popup__input'
         type='url'
@@ -50,8 +84,8 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
         required
         onChange={handleChangeLink}
       />
-      <span className='placeLink-error popup__error'></span>
-      <button className='popup__button' type='submit'>
+      <span className={classErrorLink}>{linkErrorMessage}</span>
+      <button className={classPopupButton} type='submit'>
         Сохранить
       </button>
     </PopupWithForm>
