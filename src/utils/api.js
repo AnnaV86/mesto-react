@@ -61,7 +61,7 @@ export class Api {
     }).then(this._getResponseData);
   }
 
-  patchAvatar(avatarLink) {
+  setUpdateAvatar(avatarLink) {
     return fetch(`${this._baseUrl}users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
