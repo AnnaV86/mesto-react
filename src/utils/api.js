@@ -9,7 +9,7 @@ export class Api {
       headers: this._headers,
     }).then(this._getResponseData);
   }
-  getInitialCards() {
+  getCardList() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     }).then(this._getResponseData);
@@ -31,8 +31,8 @@ export class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: newCard.placeName,
-        link: newCard.placeLink,
+        name: newCard.name,
+        link: newCard.link,
       }),
     }).then(this._getResponseData);
   }
