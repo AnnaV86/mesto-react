@@ -3,12 +3,12 @@ import { Header } from './Header';
 import { Main } from './Main';
 import { Footer } from './Footer';
 import { ImagePopup } from './ImagePopup';
-import { PopupWithForm } from './PopupWithForm';
 import api from '../utils/api';
 import { CurrentUserContext } from './CurrentUserContext';
 import { EditProfilePopup } from './EditProfilePopup';
 import { EditAvatarPopup } from './EditAvatarPopup';
 import { AddPlacePopup } from './AddPlacePopup';
+import { DeleteCardPopup } from './DeleteCardPopup';
 
 export const App = () => {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -18,6 +18,7 @@ export const App = () => {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [cardDelete, setCardDelete] = useState({});
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -26,10 +27,19 @@ export const App = () => {
     });
   };
 
-  const handleCardDelete = (card) => {
-    api.deleteCard(card._id).then(() => {
-      setCards(cards.concat().filter((el) => el._id !== card._id));
-    });
+  const handleAcceptDelete = (card) => {
+    setDeletePopupOpen(true);
+    setCardDelete(card);
+  };
+
+  const handleCardDelete = () => {
+    api
+      .deleteCard(cardDelete._id)
+      .then(() => {
+        setCards(cards.concat().filter((el) => el._id !== cardDelete._id));
+      })
+      .then(setCardDelete({}))
+      .then(() => closeAllPopups());
   };
 
   const handleEditAvatarClick = () => {
@@ -101,7 +111,7 @@ export const App = () => {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             cards={cards}
-            onCardDelete={handleCardDelete}
+            onCardDelete={handleAcceptDelete}
             onCardLike={handleCardLike}
           />
           <Footer />
@@ -129,16 +139,11 @@ export const App = () => {
           )}
 
           {isDeletePopupOpen && (
-            <PopupWithForm
-              name='delete'
-              title='Вы уверены?'
+            <DeleteCardPopup
               isOpen={isDeletePopupOpen}
-              isClose={closeAllPopups}
-            >
-              <button className='popup__button' type='submit'>
-                Да
-              </button>
-            </PopupWithForm>
+              onClose={closeAllPopups}
+              acceptDeleteCard={handleCardDelete}
+            />
           )}
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
