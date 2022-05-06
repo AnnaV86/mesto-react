@@ -6,6 +6,7 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import api from '../utils/api';
 import { CurrentUserContext } from './CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -47,6 +48,14 @@ function App() {
     setSelectedCard({});
   };
 
+  const handleUpdateUser = (userData) => {
+    api
+      .setUserInfo(userData)
+      .then((newUserData) => setCurrentUser(newUserData))
+      .then(() => closeAllPopups())
+      .catch((err) => console.log(err));
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {
@@ -81,36 +90,11 @@ function App() {
             </PopupWithForm>
           )}
           {isEditProfilePopupOpen && (
-            <PopupWithForm
-              name='profile'
-              title='Редактировать профиль'
+            <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
-              isClose={closeAllPopups}
-            >
-              <input
-                className='popup__input'
-                type='text'
-                name='profileName'
-                id='profName'
-                required
-                minLength='2'
-                maxLength='30'
-              />
-              <span className='profName-error popup__error'></span>
-              <input
-                className='popup__input'
-                type='text'
-                name='profileAboutMe'
-                id='profAboutMe'
-                required
-                minLength='2'
-                maxLength='200'
-              />
-              <span className='profAboutMe-error popup__error'></span>
-              <button className='popup__button' type='submit'>
-                Сохранить
-              </button>
-            </PopupWithForm>
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
           )}
 
           {isAddPlacePopupOpen && (

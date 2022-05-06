@@ -15,13 +15,13 @@ export class Api {
     }).then(this._getResponseData);
   }
 
-  patchUserInfo(userData) {
+  setUserInfo(userData) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: userData.profileName,
-        about: userData.profileAboutMe,
+        name: userData.name,
+        about: userData.about,
       }),
     }).then(this._getResponseData);
   }
