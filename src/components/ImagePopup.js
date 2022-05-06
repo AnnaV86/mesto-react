@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-function ImagePopup({ card, onClose }) {
+export const ImagePopup = ({ card, onClose }) => {
   const { name, link } = card;
   const classPopup = classNames(`popup popup_type_img`, {
     [`popup popup_type_img` + ' popup_opened']: link,
@@ -20,6 +20,4 @@ function ImagePopup({ card, onClose }) {
       </div>
     </div>
   );
-}
-
-export default ImagePopup;
+};

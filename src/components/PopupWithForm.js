@@ -1,7 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 
-function PopupWithForm({ name, title, isOpen, onClose, onSubmit, children }) {
+export const PopupWithForm = ({
+  name,
+  title,
+  isOpen,
+  onClose,
+  onSubmit,
+  children,
+}) => {
   const classPopup = classNames(`popup popup_type_${name}`, {
     [`popup popup_type_${name}` + ' popup_opened']: isOpen,
   });
@@ -27,6 +34,4 @@ function PopupWithForm({ name, title, isOpen, onClose, onSubmit, children }) {
       </div>
     </div>
   );
-}
-
-export default PopupWithForm;
+};

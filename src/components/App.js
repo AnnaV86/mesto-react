@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
-import ImagePopup from './ImagePopup';
-import PopupWithForm from './PopupWithForm';
+import { Header } from './Header';
+import { Main } from './Main';
+import { Footer } from './Footer';
+import { ImagePopup } from './ImagePopup';
+import { PopupWithForm } from './PopupWithForm';
 import api from '../utils/api';
 import { CurrentUserContext } from './CurrentUserContext';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
+import { EditProfilePopup } from './EditProfilePopup';
+import { EditAvatarPopup } from './EditAvatarPopup';
+import { AddPlacePopup } from './AddPlacePopup';
 
-function App() {
+export const App = () => {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
@@ -146,6 +146,4 @@ function App() {
       }
     </CurrentUserContext.Provider>
   );
-}
-
-export default App;
+};

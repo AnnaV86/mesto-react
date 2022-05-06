@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import PopupWithForm from './PopupWithForm';
+import { PopupWithForm } from './PopupWithForm';
 
-const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
+export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
@@ -57,5 +57,3 @@ const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
     </PopupWithForm>
   );
 };
-
-export default AddPlacePopup;

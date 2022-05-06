@@ -1,11 +1,9 @@
 import React from 'react';
 import logo from '../images/logo.svg';
-function Header() {
+export const Header = () => {
   return (
     <header className='header'>
       <img className='header__logo' src={logo} alt='Место Russia' />
     </header>
   );
-}
-
-export default Header;
+};

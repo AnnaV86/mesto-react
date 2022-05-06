@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { CurrentUserContext } from './CurrentUserContext';
 
-const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
+export const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
   const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -47,5 +47,3 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
     </li>
   );
 };
-
-export default Card;

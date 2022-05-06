@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Card from './Card';
+import { Card } from './Card';
 import { CurrentUserContext } from './CurrentUserContext';
-function Main({
+export const Main = ({
   onEditProfile,
   onAddPlace,
   onEditAvatar,
@@ -9,7 +9,7 @@ function Main({
   cards,
   onCardDelete,
   onCardLike,
-}) {
+}) => {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -67,6 +67,4 @@ function Main({
       </section>
     </main>
   );
-}
-
-export default Main;
+};
