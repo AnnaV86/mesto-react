@@ -15,6 +15,7 @@ export const App = () => {
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
   const [isDeletePopupOpen, setDeletePopupOpen] = useState(false);
+  const [isImagePopupOpen, setImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -56,9 +57,12 @@ export const App = () => {
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
+    setImagePopupOpen(true);
   };
 
   const closeAllPopups = () => {
+    console.log('start');
+    setImagePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
     setAddPlacePopupOpen(false);
@@ -90,6 +94,14 @@ export const App = () => {
       .catch((err) => console.log(err));
   };
 
+  const handleEscClose = (e) => {
+    console.log('start1');
+    if (e.key === 'Escape') {
+      console.log(e.key);
+      closeAllPopups();
+    }
+  };
+
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCardList()])
       .then((res) => {
@@ -103,7 +115,7 @@ export const App = () => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {
-        <div className='page'>
+        <div className='page' onKeyDown={handleEscClose}>
           <Header />
           <Main
             onEditProfile={handleEditProfileClick}
@@ -146,7 +158,13 @@ export const App = () => {
             />
           )}
 
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+          {isImagePopupOpen && (
+            <ImagePopup
+              card={selectedCard}
+              isOpen={isImagePopupOpen}
+              onClose={closeAllPopups}
+            />
+          )}
         </div>
       }
     </CurrentUserContext.Provider>

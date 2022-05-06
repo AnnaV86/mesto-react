@@ -10,11 +10,17 @@ export const PopupWithForm = ({
   children,
 }) => {
   const classPopup = classNames(`popup popup_type_${name}`, {
-    [`popup popup_type_${name}` + ' popup_opened']: isOpen,
+    ['popup_opened']: isOpen,
   });
 
+  const handleMouseDown = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={classPopup}>
+    <div className={classPopup} onMouseDown={handleMouseDown}>
       <div className='popup__container'>
         <h2 className='popup__heading'>{title}</h2>
         <form
