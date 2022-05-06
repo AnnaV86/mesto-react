@@ -61,7 +61,6 @@ export const App = () => {
   };
 
   const closeAllPopups = () => {
-    console.log('start');
     setImagePopupOpen(false);
     setEditAvatarPopupOpen(false);
     setEditProfilePopupOpen(false);
@@ -95,12 +94,14 @@ export const App = () => {
   };
 
   const handleEscClose = (e) => {
-    console.log('start1');
     if (e.key === 'Escape') {
-      console.log(e.key);
       closeAllPopups();
     }
   };
+
+  useEffect(() => {
+    document.addEventListener('keyup', handleEscClose);
+  }, []);
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCardList()])
@@ -115,7 +116,7 @@ export const App = () => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {
-        <div className='page' onKeyDown={handleEscClose}>
+        <div className='page'>
           <Header />
           <Main
             onEditProfile={handleEditProfileClick}
