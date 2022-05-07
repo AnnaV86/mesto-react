@@ -13,16 +13,14 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
   const [buttonText, setButtonText] = useState('Сохранить');
   const classErrorName = classNames(`profName-error popup__error`, {
-    [`profName-error popup__error` + ' popup__error_visible']: !isNameValid,
+    ['popup__error_visible']: !isNameValid,
   });
   const classErrorAboutMe = classNames(`profAboutMe-error popup__error`, {
-    [`profAboutMe-error popup__error` + ' popup__error_visible']:
-      !isDescriptionValid,
+    ['popup__error_visible']: !isDescriptionValid,
   });
 
   const classPopupButton = classNames(`popup__button`, {
-    [`popup__button` + ' popup__button_disabled']:
-      !isNameValid || !isDescriptionValid,
+    ['popup__button_disabled']: !isNameValid || !isDescriptionValid,
   });
 
   const handleChangeName = (e) => {
@@ -65,6 +63,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
+    setButtonText('Сохранить');
   }, [currentUser, isOpen]);
 
   return (
@@ -95,7 +94,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         required
         minLength='2'
         maxLength='200'
-        value={description}
+        value={description || ''}
         onChange={handleChangeDescription}
       />
       <span className={classErrorAboutMe}>{descriptionErrorMessage}</span>

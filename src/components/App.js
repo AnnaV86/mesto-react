@@ -128,44 +128,34 @@ export const App = () => {
             onCardLike={handleCardLike}
           />
           <Footer />
-          {isEditAvatarPopupOpen && (
-            <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-            />
-          )}
-          {isEditProfilePopupOpen && (
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-            />
-          )}
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
 
-          {isAddPlacePopupOpen && (
-            <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddPlace={handleAddPlaceSubmit}
-            />
-          )}
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
 
-          {isDeletePopupOpen && (
-            <DeleteCardPopup
-              isOpen={isDeletePopupOpen}
-              onClose={closeAllPopups}
-              acceptDeleteCard={handleCardDelete}
-            />
-          )}
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
 
-          {isImagePopupOpen && (
-            <ImagePopup
-              card={selectedCard}
-              isOpen={isImagePopupOpen}
-              onClose={closeAllPopups}
-            />
-          )}
+          <DeleteCardPopup
+            isOpen={isDeletePopupOpen}
+            onClose={closeAllPopups}
+            acceptDeleteCard={handleCardDelete}
+          />
+          <ImagePopup
+            card={selectedCard}
+            isOpen={isImagePopupOpen}
+            onClose={closeAllPopups}
+          />
         </div>
       }
     </CurrentUserContext.Provider>

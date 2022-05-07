@@ -11,13 +11,13 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
   const [linkErrorMessage, setLinkErrorMessage] = useState('');
   const [buttonText, setButtonText] = useState('Сохранить');
   const classErrorName = classNames(`placeName-error popup__error`, {
-    [`placeName-error popup__error` + ' popup__error_visible']: !isNameValid,
+    ['popup__error_visible']: !isNameValid,
   });
   const classErrorLink = classNames(`placeLink-error popup__error`, {
-    [`placeLink-error popup__error` + ' popup__error_visible']: !isLinkValid,
+    ['popup__error_visible']: !isLinkValid,
   });
   const classPopupButton = classNames(`popup__button`, {
-    [`popup__button` + ' popup__button_disabled']: !isNameValid || !isLinkValid,
+    ['popup__button_disabled']: !isNameValid || !isLinkValid,
   });
 
   const handleChangeName = (e) => {
@@ -55,16 +55,15 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       name,
       link,
     });
+    setName('');
+    setLink('');
   };
 
   useEffect(() => {
     setName('');
     setLink('');
-    return () => {
-      setName('');
-      setLink('');
-    };
-  }, []);
+    setButtonText('Сохранить');
+  }, [isOpen]);
 
   return (
     <PopupWithForm

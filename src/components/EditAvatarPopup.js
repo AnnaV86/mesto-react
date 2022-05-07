@@ -8,10 +8,10 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   const [linkErrorMessage, setLinkErrorMessage] = useState('');
   const [buttonText, setButtonText] = useState('Сохранить');
   const classErrorLink = classNames(`avatarLink-error popup__error`, {
-    [`avatarLink-error popup__error` + ' popup__error_visible']: !isLinkValid,
+    ['popup__error_visible']: !isLinkValid,
   });
   const classPopupButton = classNames(`popup__button`, {
-    [`popup__button` + ' popup__button_disabled']: !isLinkValid,
+    ['popup__button_disabled']: !isLinkValid,
   });
 
   const handleChangeLink = (e) => {
@@ -38,7 +38,8 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
 
   useEffect(() => {
     avatarRef.current.value = '';
-  }, []);
+    setButtonText('Сохранить');
+  }, [isOpen]);
 
   return (
     <PopupWithForm
