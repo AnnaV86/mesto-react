@@ -64,7 +64,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
       setName('');
       setLink('');
     };
-  }, [isOpen]);
+  }, []);
 
   return (
     <PopupWithForm
