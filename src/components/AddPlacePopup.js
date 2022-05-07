@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PopupWithForm } from './PopupWithForm';
 import classNames from 'classnames';
 
@@ -53,9 +53,18 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
     setButtonText('Сохранение...');
     onAddPlace({
       name,
-      link: link,
+      link,
     });
   };
+
+  useEffect(() => {
+    setName('');
+    setLink('');
+    return () => {
+      setName('');
+      setLink('');
+    };
+  }, [isOpen]);
 
   return (
     <PopupWithForm
@@ -70,6 +79,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
         type='text'
         name='placeName'
         id='placeName'
+        value={name}
         placeholder='Название'
         required
         minLength='2'
@@ -82,6 +92,7 @@ export const AddPlacePopup = ({ isOpen, onClose, onAddPlace }) => {
         type='url'
         name='placeLink'
         id='placeLink'
+        value={link}
         placeholder='Ссылка на картинку'
         required
         onChange={handleChangeLink}

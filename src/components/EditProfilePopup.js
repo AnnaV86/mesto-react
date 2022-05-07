@@ -1,6 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { PopupWithForm } from './PopupWithForm';
-import { CurrentUserContext } from './CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import classNames from 'classnames';
 
 export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
@@ -65,7 +65,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
   useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   return (
     <PopupWithForm
@@ -83,7 +83,7 @@ export const EditProfilePopup = ({ isOpen, onClose, onUpdateUser }) => {
         required
         minLength='2'
         maxLength='30'
-        value={name}
+        value={name || ''}
         onChange={handleChangeName}
       />
       <span className={classErrorName}>{nameErrorMessage}</span>

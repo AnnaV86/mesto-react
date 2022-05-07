@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { CurrentUserContext } from './CurrentUserContext';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -26,6 +26,7 @@ export const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
       <img
         className='element-item__photo'
         src={card.link}
+        alt={card.name}
         onClick={() => onCardClick(card)}
       />
       <div className='element-item__title-like'>

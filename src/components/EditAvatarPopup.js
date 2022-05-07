@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { PopupWithForm } from './PopupWithForm';
 import classNames from 'classnames';
 
@@ -7,6 +7,7 @@ export const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar }) => {
   const [isLinkValid, setLinkValid] = useState(false);
   const [linkErrorMessage, setLinkErrorMessage] = useState('');
   const [buttonText, setButtonText] = useState('Сохранить');
+  // const [link, setLink] = useState('');
   const classErrorLink = classNames(`avatarLink-error popup__error`, {
     [`avatarLink-error popup__error` + ' popup__error_visible']: !isLinkValid,
   });

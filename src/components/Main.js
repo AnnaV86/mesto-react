@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { Card } from './Card';
-import { CurrentUserContext } from './CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 export const Main = ({
   onEditProfile,
   onAddPlace,
